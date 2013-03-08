@@ -24,68 +24,68 @@
  * @package       cake
  * @subpackage    cake.cake.libs
  */
-class File {
+class File
+{
+	/**
+	 * Folder object of the File
+	 *
+	 * @var Folder
+	 * @access public
+	 */
+	public $Folder = null;
 
-/**
- * Folder object of the File
- *
- * @var Folder
- * @access public
- */
-	var $Folder = null;
+	/**
+	 * Filename
+	 *
+	 * @var string
+	 * @access public
+	 */
+	public $name = null;
 
-/**
- * Filename
- *
- * @var string
- * @access public
- */
-	var $name = null;
+	/**
+	 * file info
+	 *
+	 * @var string
+	 * @access public
+	 */
+	public $info = array();
 
-/**
- * file info
- *
- * @var string
- * @access public
- */
-	var $info = array();
+	/**
+	 * Holds the file handler resource if the file is opened
+	 *
+	 * @var resource
+	 * @access public
+	 */
+	public $handle = null;
 
-/**
- * Holds the file handler resource if the file is opened
- *
- * @var resource
- * @access public
- */
-	var $handle = null;
+	/**
+	 * enable locking for file reading and writing
+	 *
+	 * @var boolean
+	 * @access public
+	 */
+	public $lock = null;
 
-/**
- * enable locking for file reading and writing
- *
- * @var boolean
- * @access public
- */
-	var $lock = null;
+	/**
+	 * path property
+	 *
+	 * Current file's absolute path
+	 *
+	 * @var mixed null
+	 * @access public
+	 */
+	public $path = null;
 
-/**
- * path property
- *
- * Current file's absolute path
- *
- * @var mixed null
- * @access public
- */
-	var $path = null;
-
-/**
- * Constructor
- *
- * @param string $path Path to file
- * @param boolean $create Create file if it does not exist (if true)
- * @param integer $mode Mode to apply to the folder holding the file
- * @access private
- */
+	/**
+	 * Constructor
+	 *
+	 * @param string $path Path to file
+	 * @param boolean $create Create file if it does not exist (if true)
+	 * @param integer $mode Mode to apply to the folder holding the file
+	 * @access private
+	 */
 	function __construct($path, $create = false, $mode = 0755) {
-		$this->Folder =& new Folder(dirname($path), $create, $mode);
+		$this->Folder = new Folder(dirname($path), $create, $mode);
 		if (!is_dir($path)) {
 			$this->name = basename($path);
 		}
@@ -93,21 +93,21 @@ class File {
 		!$this->exists() && $create && $this->safe($path) && $this->create();
 	}
 
-/**
- * Closes the current file if it is opened
- *
- * @access private
- */
+	/**
+	 * Closes the current file if it is opened
+	 *
+	 * @access private
+	 */
 	function __destruct() {
 		$this->close();
 	}
 
-/**
- * Creates the File.
- *
- * @return boolean Success
- * @access public
- */
+	/**
+	 * Creates the File.
+	 *
+	 * @return boolean Success
+	 * @access public
+	 */
 	function create() {
 		$dir = $this->Folder->pwd();
 		if (is_dir($dir) && is_writable($dir) && !$this->exists()) {
@@ -120,14 +120,14 @@ class File {
 		return false;
 	}
 
-/**
- * Opens the current file with a given $mode
- *
- * @param string $mode A valid 'fopen' mode string (r|w|a ...)
- * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
- * @return boolean True on success, false on failure
- * @access public
- */
+	/**
+	 * Opens the current file with a given $mode
+	 *
+	 * @param string $mode A valid 'fopen' mode string (r|w|a ...)
+	 * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
+	 * @return boolean True on success, false on failure
+	 * @access public
+	 */
 	function open($mode = 'r', $force = false) {
 		if (!$force && is_resource($this->handle)) {
 			return true;
@@ -146,15 +146,15 @@ class File {
 		return false;
 	}
 
-/**
- * Return the contents of this File as a string.
- *
- * @param string $bytes where to start
- * @param string $mode A `fread` compatible mode.
- * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
- * @return mixed string on success, false on failure
- * @access public
- */
+	/**
+	 * Return the contents of this File as a string.
+	 *
+	 * @param string $bytes where to start
+	 * @param string $mode A `fread` compatible mode.
+	 * @param boolean $force If true then the file will be re-opened even if its already opened, otherwise it won't
+	 * @return mixed string on success, false on failure
+	 * @access public
+	 */
 	function read($bytes = false, $mode = 'rb', $force = false) {
 		if ($bytes === false && $this->lock === null) {
 			return file_get_contents($this->path);
@@ -183,14 +183,14 @@ class File {
 		return trim($data);
 	}
 
-/**
- * Sets or gets the offset for the currently opened file.
- *
- * @param mixed $offset The $offset in bytes to seek. If set to false then the current offset is returned.
- * @param integer $seek PHP Constant SEEK_SET | SEEK_CUR | SEEK_END determining what the $offset is relative to
- * @return mixed True on success, false on failure (set mode), false on failure or integer offset on success (get mode)
- * @access public
- */
+	/**
+	 * Sets or gets the offset for the currently opened file.
+	 *
+	 * @param mixed $offset The $offset in bytes to seek. If set to false then the current offset is returned.
+	 * @param integer $seek PHP Constant SEEK_SET | SEEK_CUR | SEEK_END determining what the $offset is relative to
+	 * @return mixed True on success, false on failure (set mode), false on failure or integer offset on success (get mode)
+	 * @access public
+	 */
 	function offset($offset = false, $seek = SEEK_SET) {
 		if ($offset === false) {
 			if (is_resource($this->handle)) {
@@ -202,15 +202,15 @@ class File {
 		return false;
 	}
 
-/**
- * Prepares a ascii string for writing.  Converts line endings to the 
- * correct terminator for the current platform.  If windows "\r\n" will be used
- * all other platforms will use "\n"
- *
- * @param string $data Data to prepare for writing.
- * @return string The with converted line endings.
- * @access public
- */
+	/**
+	 * Prepares a ascii string for writing.  Converts line endings to the
+	 * correct terminator for the current platform.  If windows "\r\n" will be used
+	 * all other platforms will use "\n"
+	 *
+	 * @param string $data Data to prepare for writing.
+	 * @return string The with converted line endings.
+	 * @access public
+	 */
 	function prepare($data, $forceWindows = false) {
 		$lineBreak = "\n";
 		if (DIRECTORY_SEPARATOR == '\\' || $forceWindows === true) {
@@ -219,15 +219,15 @@ class File {
 		return strtr($data, array("\r\n" => $lineBreak, "\n" => $lineBreak, "\r" => $lineBreak));
 	}
 
-/**
- * Write given data to this File.
- *
- * @param string $data Data to write to this File.
- * @param string $mode Mode of writing. {@link http://php.net/fwrite See fwrite()}.
- * @param string $force force the file to open
- * @return boolean Success
- * @access public
- */
+	/**
+	 * Write given data to this File.
+	 *
+	 * @param string $data Data to write to this File.
+	 * @param string $mode Mode of writing. {@link http://php.net/fwrite See fwrite()}.
+	 * @param string $force force the file to open
+	 * @return boolean Success
+	 * @access public
+	 */
 	function write($data, $mode = 'w', $force = false) {
 		$success = false;
 		if ($this->open($mode, $force) === true) {

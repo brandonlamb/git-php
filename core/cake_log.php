@@ -65,7 +65,7 @@ class CakeLog {
 	function &getInstance() {
 		static $instance = array();
 		if (!isset($instance[0])) {
-			$instance[0] =& new CakeLog();
+			$instance[0] = new CakeLog();
 		}
 		return $instance[0];
 	}
@@ -101,7 +101,7 @@ class CakeLog {
 			trigger_error(__('Missing logger classname', true), E_USER_WARNING);
 			return false;
 		}
-		$self =& CakeLog::getInstance();
+		$self = CakeLog::getInstance();
 		$className = $self->_getLogger($config['engine']);
 		if (!$className) {
 			return false;
@@ -149,7 +149,7 @@ class CakeLog {
  * @static
  */
 	function configured() {
-		$self =& CakeLog::getInstance();
+		$self = CakeLog::getInstance();
 		return array_keys($self->_streams);
 	}
 
@@ -163,7 +163,7 @@ class CakeLog {
  * @static
  */
 	function drop($streamName) {
-		$self =& CakeLog::getInstance();
+		$self = CakeLog::getInstance();
 		unset($self->_streams[$streamName]);
 	}
 
@@ -177,7 +177,7 @@ class CakeLog {
 		if (!class_exists('FileLog')) {
 			uses('log' . DS . 'file_log');
 		}
-		$this->_streams['default'] =& new FileLog(array('path' => LOGS));
+		$this->_streams['default'] = new FileLog(array('path' => LOGS));
 	}
 
 /**
@@ -197,7 +197,7 @@ class CakeLog {
  * ### Usage:
  *
  * Write a message to the 'warning' log:
- * 
+ *
  * `CakeLog::write('warning', 'Stuff is broken here');`
  *
  * @param string $type Type of message being written
@@ -225,13 +225,13 @@ class CakeLog {
 		if (is_int($type) && isset($levels[$type])) {
 			$type = $levels[$type];
 		}
-		$self =& CakeLog::getInstance();
+		$self = CakeLog::getInstance();
 		if (empty($self->_streams)) {
 			$self->_autoConfig();
 		}
 		$keys = array_keys($self->_streams);
 		foreach ($keys as $key) {
-			$logger =& $self->_streams[$key];
+			$logger = $self->_streams[$key];
 			$logger->write($type, $message);
 		}
 		return true;
@@ -239,7 +239,7 @@ class CakeLog {
 
 /**
  * An error_handler that will log errors to file using CakeLog::write();
- * You can control how verbose and what type of errors this error_handler will 
+ * You can control how verbose and what type of errors this error_handler will
  * catch using `Configure::write('log', $value)`.  See core.php for more information.
  *
  *

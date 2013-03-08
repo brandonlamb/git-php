@@ -1,7 +1,7 @@
 <?php
-class Project {
 
-
+class Project
+{
     function findAll() {
         list($repositories, $valid) = Git::loadRepositories();
         $repoSuffix = System::get('repo_suffix');

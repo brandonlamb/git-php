@@ -56,5 +56,6 @@ class ProjectsController extends AppController
 			$filepath
 		);
 		$this->set(compact('data'));
+#		$this->set('data', compact($data));
 	}
 }

@@ -1,8 +1,11 @@
 <?php
-class System {
+
+class System
+{
     static $configuration = array();
 
-    public static function verify($config) {
+    public static function verify($config)
+    {
         if (!extension_loaded('gd')) {
             throw new Exception("GD is not installed");
         }
@@ -12,7 +15,8 @@ class System {
         }
     }
 
-    public static function dispatch($request) {
+    public static function dispatch($request)
+    {
         $controllerName = Inflector::classify("{$request->params['controller']}_controller");
 
         $controller = new $controllerName($request);
@@ -25,15 +29,18 @@ class System {
         $controller->trigger($action);
     }
 
-    public static function load($config) {
+    public static function load($config)
+    {
         self::$configuration = $config;
     }
 
-    public static function set($key, $value) {
+    public static function set($key, $value)
+    {
         self::$configuration[$key] = $value;
     }
 
-    public static function get($key) {
+    public static function get($key)
+    {
         if (isset(self::$configuration[$key])) {
             return self::$configuration[$key];
         }
