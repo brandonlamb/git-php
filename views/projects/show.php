@@ -5,7 +5,7 @@
             <th>date</th>
             <th>message</th>
         </tr>
-        <?php foreach ($tree as $blob) : ?>
+        <?php foreach ($tree as $blob): ?>
             <tr>
                 <td>
                     <?php if ($blob['type'] == 'tree') : ?>
