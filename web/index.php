@@ -9,14 +9,11 @@ include_once(CONFIGS . 'routes.php');
 function __autoload($name) {
     if (file_exists(APP . Inflector::underscore($name)  . '.php')) {
         return require_once(APP . Inflector::underscore($name)  . '.php');
-    }
-    else if (file_exists(CONTROLLERS . Inflector::underscore($name)  . '.php')) {
+    } else if (file_exists(CONTROLLERS . Inflector::underscore($name)  . '.php')) {
         return require_once(CONTROLLERS . Inflector::underscore($name)  . '.php');
-    }
-    else if (file_exists(LIBS . Inflector::underscore($name)  . '.php')) {
+    } else if (file_exists(LIBS . Inflector::underscore($name)  . '.php')) {
         return require_once(LIBS . Inflector::underscore($name)  . '.php');
-    }
-    else {
+    } else {
         return require_once(CORE . Inflector::underscore($name)  . '.php');
     }
 }

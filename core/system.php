@@ -1,6 +1,5 @@
 <?php
 class System {
-
     static $configuration = array();
 
     public static function verify($config) {
@@ -40,5 +39,4 @@ class System {
         }
         return null;
     }
-
 }

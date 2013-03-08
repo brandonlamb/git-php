@@ -42,7 +42,7 @@ class Project {
 
         $out = array();
         $cmd = "GIT_DIR=" . escapeshellarg($repo . $repoSuffix) . " {$gitBinary} rev-list  --header --max-count=1 HEAD 2>&1 | grep -a committer | cut -d' ' -f2-3";
-        $own = exec($cmd, &$out);
+        $own = exec($cmd, $out);
         return $own;
     }
 
@@ -52,7 +52,7 @@ class Project {
 
         $out = array();
         $cmd = "GIT_DIR=" . escapeshellarg($repo . $repoSuffix) . " {$gitBinary} rev-list  --header --max-count=1 HEAD 2>&1 | grep -a committer | cut -d' ' -f5-6";
-        $date = exec($cmd, &$out);
+        $date = exec($cmd, $out);
         return date(System::get('git_date_format'), (int) $date);
     }
 
@@ -106,7 +106,7 @@ class Project {
 
     function getDescription($proj) {
         $repoSuffix = System::get('repo_suffix');
- 
+
         $path = Git::repoPath($proj);
         return file_get_contents("{$path}{$repoSuffix}/description");
     }

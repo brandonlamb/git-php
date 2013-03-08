@@ -31,15 +31,15 @@
  * @deprecated Will be removed in 2.0
  * @link http://book.cakephp.org/view/1140/uses
  */
-	function uses() {
-		$args = func_get_args();
-		$result = false;
-		foreach ($args as $file) {
-			$result = include_once(CORE . strtolower($file) . '.php');
-			if (!$result) return false;
-		}
-		return true;
+function uses() {
+	$args = func_get_args();
+	$result = false;
+	foreach ($args as $file) {
+		$result = include_once(CORE . strtolower($file) . '.php');
+		if (!$result) return false;
 	}
+	return true;
+}
 
 /**
  * Prints out debug information about given variable.
@@ -52,20 +52,20 @@
  * @link http://book.cakephp.org/view/1190/Basic-Debugging
  * @link http://book.cakephp.org/view/1128/debug
  */
-	function debug($var = false, $showHtml = false, $showFrom = true) {
-		if ($showFrom) {
-			$calledFrom = debug_backtrace();
-			echo '<strong>' . $calledFrom[0]['file'] . '</strong>';
-			echo ' (line <strong>' . $calledFrom[0]['line'] . '</strong>)';
-		}
-		echo "\n<pre class=\"cake-debug\">\n";
-
-		$var = print_r($var, true);
-		if ($showHtml) {
-			$var = str_replace('<', '&lt;', str_replace('>', '&gt;', $var));
-		}
-		echo $var . "\n</pre>\n";
+function debug($var = false, $showHtml = false, $showFrom = true) {
+	if ($showFrom) {
+		$calledFrom = debug_backtrace();
+		echo '<strong>' . $calledFrom[0]['file'] . '</strong>';
+		echo ' (line <strong>' . $calledFrom[0]['line'] . '</strong>)';
 	}
+	echo "\n<pre class=\"cake-debug\">\n";
+
+	$var = print_r($var, true);
+	if ($showHtml) {
+		$var = str_replace('<', '&lt;', str_replace('>', '&gt;', $var));
+	}
+	echo $var . "\n</pre>\n";
+}
 
 /**
  * Prints out debug information about given variable.
@@ -78,21 +78,21 @@
  * @link http://book.cakephp.org/view/1190/Basic-Debugging
  * @link http://book.cakephp.org/view/1128/debug
  */
-	function diebug($var = false, $showHtml = false, $showFrom = true) {
-		if ($showFrom) {
-			$calledFrom = debug_backtrace();
-			echo '<strong>' . $calledFrom[0]['file'] . '</strong>';
-			echo ' (line <strong>' . $calledFrom[0]['line'] . '</strong>)';
-		}
-		echo "\n<pre class=\"cake-debug\">\n";
-
-		$var = print_r($var, true);
-		if ($showHtml) {
-			$var = str_replace('<', '&lt;', str_replace('>', '&gt;', $var));
-		}
-		echo $var . "\n</pre>\n";
-		exit;
+function diebug($var = false, $showHtml = false, $showFrom = true) {
+	if ($showFrom) {
+		$calledFrom = debug_backtrace();
+		echo '<strong>' . $calledFrom[0]['file'] . '</strong>';
+		echo ' (line <strong>' . $calledFrom[0]['line'] . '</strong>)';
 	}
+	echo "\n<pre class=\"cake-debug\">\n";
+
+	$var = print_r($var, true);
+	if ($showHtml) {
+		$var = str_replace('<', '&lt;', str_replace('>', '&gt;', $var));
+	}
+	echo $var . "\n</pre>\n";
+	exit;
+}
 
 /**
  * Splits a dot syntax plugin name into its plugin and classname.
@@ -105,13 +105,13 @@
  * @param string $plugin Optional default plugin to use if no plugin is found. Defaults to null.
  * @return array Array with 2 indexes.  0 => plugin name, 1 => classname
  */
-	function pluginSplit($name, $dotAppend = false, $plugin = null) {
-		if (strpos($name, '.') !== false) {
-			$parts = explode('.', $name, 2);
-			if ($dotAppend) {
-				$parts[0] .= '.';
-			}
-			return $parts;
+function pluginSplit($name, $dotAppend = false, $plugin = null) {
+	if (strpos($name, '.') !== false) {
+		$parts = explode('.', $name, 2);
+		if ($dotAppend) {
+			$parts[0] .= '.';
 		}
-		return array($plugin, $name);
+		return $parts;
 	}
+	return array($plugin, $name);
+}
